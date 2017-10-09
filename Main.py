@@ -38,6 +38,7 @@ times_failed_no_such_element_inside_loop = 0
 number_of_pictures_liked = 0
 
 # Paths, Classes, Text Strings
+# These could change if instagram changes the so you will need to edit the class paths
 url = "http://www.instagram.com"
 logInText = 'Log in'
 userNameText = 'username'
