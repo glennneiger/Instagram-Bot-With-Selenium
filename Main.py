@@ -46,7 +46,7 @@ passwordText = 'password'
 logInButtonPath = "//button[contains(text(),'Log in')]"
 searchBarPath = "//input[@class='_avvq0 _o716c']"
 firstLinkClass = '_gimca'
-firstSearchImagePath = '//*[@id="react-root"]/section/main/article/div[2]/div[1]/div[1]/div[1]/a'
+firstSearchImagePath = '//div[@class="_mck9w _gvoze _f2mse"]/a'
 likeText = 'Like'
 nextText = 'Next'
 closeButtonPath = "//button[text()='Close']"
