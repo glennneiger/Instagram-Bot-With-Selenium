@@ -23,8 +23,8 @@ hash_tags = sys.argv[3]
 
 # Bot_Info
 run_continuously = True  # Change to true if you want it to not stop
-number_of_likes_of_hash_tag = 30
-redo_whole_hash_tag_list = 10
+number_of_likes_of_hash_tag = 20
+redo_whole_hash_tag_list = 3
 least_number_of_seconds_per_like = 10
 max_number_of_seconds_per_like = 30
 
@@ -38,7 +38,6 @@ times_failed_no_such_element_inside_loop = 0
 number_of_pictures_liked = 0
 
 # Paths, Classes, Text Strings
-# These could change if instagram changes the so you will need to edit the class paths
 url = "http://www.instagram.com"
 logInText = 'Log in'
 userNameText = 'username'
@@ -46,13 +45,13 @@ passwordText = 'password'
 logInButtonPath = "//button[contains(text(),'Log in')]"
 searchBarPath = "//input[@class='_avvq0 _o716c']"
 firstLinkClass = '_gimca'
-firstSearchImagePath = '//div[@class="_mck9w _gvoze _f2mse"]/a'
+firstSearchImagePath = '//span[@id="react-root"]/section/main/article/div[2]/div[1]/div[1]/div[1]/a'
 likeText = 'Like'
 nextText = 'Next'
 closeButtonPath = "//button[text()='Close']"
 
 
-class BColors:
+class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -64,7 +63,7 @@ class BColors:
 
 
 def go_to_instagram():
-    print(BColors.HEADER + 'Stage 1: Going To WebSite' + BColors.ENDC)
+    print(bcolors.HEADER + 'Stage 1: Going To WebSite' + bcolors.ENDC)
     driver.set_page_load_timeout(30)
     driver.maximize_window()
     driver.get(url)
@@ -75,7 +74,7 @@ def go_to_instagram():
 
 
 def sign_into_instagram():
-    print(BColors.HEADER + 'Stage 2: Signing Into Instagram' + BColors.ENDC)
+    print(bcolors.HEADER + 'Stage 2: Signing Into Instagram' + bcolors.ENDC)
     driver.implicitly_wait(20)
     driver.find_element_by_name(userNameText).send_keys(username)
     driver.find_element_by_name(passwordText).send_keys(password)
@@ -83,7 +82,7 @@ def sign_into_instagram():
 
 
 def search_hash_tag(hash_tag):
-    print(BColors.HEADER + 'Stage 3: Searching Images With HashTag' + BColors.ENDC)
+    print(bcolors.HEADER + 'Stage 3: Searching Images With HashTag' + bcolors.ENDC)
     driver.implicitly_wait(20)
     input_element = driver.find_element_by_xpath(searchBarPath)
     input_element.send_keys('#'+hash_tag)
@@ -97,36 +96,41 @@ def search_hash_tag(hash_tag):
 
 
 def like_images(hash_tag):
-    print(BColors.HEADER + 'Stage 4: Liking Images With Current HashTag' + BColors.ENDC)
+    print(bcolors.HEADER + 'Stage 4: Liking Images With Current HashTag' + bcolors.ENDC)
     global times_failed_no_such_element_inside_loop
     global number_of_pictures_liked
     global times_failed_time_out_inside_loop
 
+    # driver.execute_script("document.body.style.zoom='50%'")
+    # driver.find_element_by_tag_name("html").send_keys(Keys.CONTROL, Keys.SUBTRACT);
+
+    driver.implicitly_wait(5)
+    driver.execute_script("window.scrollTo(0, (document.body.scrollHeight/2));")
+    time.sleep(5)
+
     driver.implicitly_wait(5)
     driver.find_element_by_xpath(firstSearchImagePath).click()
     time.sleep(5)
-    print(BColors.OKBLUE + 'Clicked on first image' + BColors.ENDC)
+    print(bcolors.OKBLUE + 'Clicked on first image' + bcolors.ENDC)
     skipped = False
     i = 0
 
     while i < number_of_likes_of_hash_tag:
         try:
             driver.implicitly_wait(5)
-            element_like = WebDriverWait(driver, 10).until(lambda drive: driver.find_element_by_link_text(likeText))
+            element_like = WebDriverWait(driver,10).until(lambda drive: driver.find_element_by_link_text(likeText))
             element_like.click()
             time.sleep(5)
             number_of_pictures_liked += 1
-            print(BColors.OKGREEN + 'Images Liked: ' + str(number_of_pictures_liked) + BColors.ENDC)
+            print(bcolors.OKGREEN + 'Images Liked: ' + str(number_of_pictures_liked)+ bcolors.ENDC)
         except TimeoutException:
             times_failed_time_out_inside_loop += 1
-            print(BColors.WARNING + '--Picture Already Liked It Inside Time Out: ' +
-                  str(times_failed_time_out_inside_loop) + BColors.ENDC)
+            print(bcolors.WARNING + '--Picture Already Liked It Inside Time Out: ' + str(times_failed_time_out_inside_loop) + bcolors.ENDC)
             skipped = True
             i -= 1
         except NoSuchElementException:
             times_failed_no_such_element_inside_loop += 1
-            print(BColors.WARNING + '--Picture Already Liked It Inside No Such Element:' +
-                  str(times_failed_no_such_element_inside_loop) + BColors.ENDC)
+            print(bcolors.WARNING + '--Picture Already Liked It Inside No Such Element:' + str(times_failed_no_such_element_inside_loop) + bcolors.ENDC)
             skipped = True
             i -= 1
         try:
@@ -142,8 +146,7 @@ def like_images(hash_tag):
             i += 1
         except TimeoutException:
             times_failed_time_out_inside_loop += 1
-            print(BColors.FAIL + '--Failed Timeout Exception Inside Time In: ' + str(times_failed_time_out_inside_loop)
-                  + BColors.ENDC)
+            print(bcolors.FAIL + '--Failed Timeout Exception Inside Time In: ' + str(times_failed_time_out_inside_loop) + bcolors.ENDC)
             driver.implicitly_wait(20)
             driver.get(url)
             time.sleep(20)
@@ -151,11 +154,10 @@ def like_images(hash_tag):
             driver.implicitly_wait(5)
             driver.find_element_by_xpath(firstSearchImagePath).click()
             time.sleep(5)
-            print(BColors.OKGREEN + 'Clicked on first image' + BColors.ENDC)
+            print(bcolors.OKGREEN + 'Clicked on first image' + bcolors.ENDC)
         except NoSuchElementException:
             times_failed_no_such_element_inside_loop += 1
-            print(BColors.FAIL + '--Failed No Such Element Inside Time In: ' + str(times_failed_no_such_element) +
-                  BColors.ENDC)
+            print(bcolors.FAIL + '--Failed No Such Element Inside Time In: ' + str(times_failed_no_such_element) + bcolors.ENDC)
             driver.implicitly_wait(20)
             driver.get(url)
             time.sleep(20)
@@ -163,7 +165,7 @@ def like_images(hash_tag):
             driver.implicitly_wait(5)
             driver.find_element_by_xpath(firstSearchImagePath).click()
             time.sleep(5)
-            print(BColors.OKGREEN + 'Clicked on first image' + BColors.ENDC)
+            print(bcolors.OKGREEN + 'Clicked on first image' + bcolors.ENDC)
     try:
         driver.implicitly_wait(5)
         driver.find_element_by_xpath(closeButtonPath).click()
@@ -179,7 +181,7 @@ def like_images(hash_tag):
 
 
 def finished():
-    print(BColors.HEADER + 'Stage 5: Application Finished' + BColors.ENDC)
+    print(bcolors.HEADER + 'Stage 5: Application Finished' + bcolors.ENDC)
     driver.quit()
 
 
@@ -194,14 +196,14 @@ def main(first_time):
             sign_into_instagram()
         except TimeoutException:
             times_failed_time_out += 1
-            print(BColors.FAIL + '--Failed Outside Time Out: ' + str(times_failed_time_out) + BColors.ENDC)
+            print(bcolors.FAIL + '--Failed Outside Time Out: ' + str(times_failed_time_out) + bcolors.ENDC)
             driver.implicitly_wait(20)
             driver.get(url)
             time.sleep(20)
             main(True)
         except NoSuchElementException:
             times_failed_time_out += 1
-            print(BColors.FAIL + '--Failed Outside Time Out: ' + str(times_failed_no_such_element) + BColors.ENDC)
+            print(bcolors.FAIL + '--Failed Outside Time Out: ' + str(times_failed_no_such_element) + bcolors.ENDC)
             driver.implicitly_wait(20)
             driver.get(url)
             time.sleep(20)
@@ -211,7 +213,7 @@ def main(first_time):
         while n < redo_whole_hash_tag_list:
             i = 0
             while i < hash_tags_number:
-                print(BColors.OKBLUE + '--Current Hash Tag: ' + hash_tags_list[i] + BColors.ENDC)
+                print(bcolors.OKBLUE + '--Current Hash Tag: ' + hash_tags_list[i] + bcolors.ENDC)
                 search_hash_tag(hash_tags_list[i])
                 like_images(hash_tags_list[i])
                 i += 1
@@ -219,14 +221,14 @@ def main(first_time):
                 n += 1
     except TimeoutException:
         times_failed_time_out += 1
-        print(BColors.FAIL + '--Failed Outside Time Out: ' + str(times_failed_time_out) + BColors.ENDC)
+        print(bcolors.FAIL + '--Failed Outside Time Out: ' + str(times_failed_time_out) + bcolors.ENDC)
         driver.implicitly_wait(20)
         driver.get(url)
         time.sleep(20)
         main(False)
     except NoSuchElementException:
         times_failed_no_such_element += 1
-        print(BColors.FAIL + '--Failed Outside No Such Element: ' + str(times_failed_no_such_element) + BColors.ENDC)
+        print(bcolors.FAIL + '--Failed Outside No Such Element: ' + str(times_failed_no_such_element) + bcolors.ENDC)
         driver.implicitly_wait(20)
         driver.get(url)
         time.sleep(20)
