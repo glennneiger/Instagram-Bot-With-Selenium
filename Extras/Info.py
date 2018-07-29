@@ -20,14 +20,13 @@ class applicationInfo:
     USERNAME_TEXT = 'username'
     PASSWORD_TEXT = 'password'
     LOG_IN_BUTTON_PATH = "//button[contains(text(),'Log in')]"
-    SEARCH_BAR_PATH = "//input[@class='_avvq0 _o716c']"
-    FIRST_LINK_CLASS = '_ndl3t'
+    SEARCH_BAR_PATH = "//input[@class='XTCLo x3qfX ']"
+    FIRST_LINK_CLASS = 'yCE8d'
     FIRST_SEARCH_IMAGE_PATH = '//span[@id="react-root"]/section/main/article/div[2]/div[1]/div[1]/div[1]/a'
     LIKE_TEXT = 'Like'
     NEXT_TEXT = 'Next'
     CLOSE_BUTTON_PATH = "//button[text()='Close']"
     PROFILE_TEXT = 'Profile'
-    CHROME_DRIVER = "PATH" # EDIT THIS TO YOUR MACHINE
 
     # DRIVER PATH
     WEB_DRIVER = 'D:\Important\Web Drivers\chromedriver.exe'
