@@ -23,7 +23,7 @@ class applicationInfo:
     SEARCH_BAR_PATH = "//input[@class='XTCLo x3qfX ']"
     FIRST_LINK_CLASS = 'yCE8d'
     FIRST_SEARCH_IMAGE_PATH = '//span[@id="react-root"]/section/main/article/div[2]/div[1]/div[1]/div[1]/a'
-    LIKE_TEXT = 'Like'
+    LIKE_BUTTON_XPATH = '/html/body/div[3]/div/div[2]/div/article/div[2]/section[1]/span[1]/button'
     NEXT_TEXT = 'Next'
     CLOSE_BUTTON_PATH = "//button[text()='Close']"
     PROFILE_TEXT = 'Profile'

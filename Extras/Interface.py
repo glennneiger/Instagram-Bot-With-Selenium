@@ -95,8 +95,10 @@ class interfaceControl:
         while i < applicationInfo.NUMBER_OF_LIKES_PER_HASH_TAG:
             driver.implicitly_wait(applicationInfo.IMPLICIT_WAIT)
             try:
-                element_like = WebDriverWait(driver, applicationInfo.IMPLICIT_WAIT).until(lambda drive: driver.find_element_by_link_text(applicationInfo.LIKE_TEXT))
-                element_like.click()
+
+                like_button = driver.find_elements_by_xpath(applicationInfo.LIKE_BUTTON_PATH)[0]
+                like_button.click()
+
             except NoSuchElementException:
                 break
 
