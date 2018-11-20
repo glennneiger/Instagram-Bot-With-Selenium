@@ -7,6 +7,7 @@ from Extras.Interface import interfaceControl
 from Extras.bcolors import bcolors
 
 driver = webdriver.Chrome(applicationInfo.CHROME_DRIVER)
+number_of_images_liked = 0
 
 # Instagram_Info
 username = accounts.USERNAME

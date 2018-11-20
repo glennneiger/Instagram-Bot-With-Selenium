@@ -6,9 +6,10 @@ from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 
-import bcolors
-from Info import applicationInfo
-from bcolors import bcolors
+from Extras.Info import applicationInfo
+from Extras import bcolors
+
+import Main
 
 
 class interfaceControl:
@@ -95,14 +96,15 @@ class interfaceControl:
         while i < applicationInfo.NUMBER_OF_LIKES_PER_HASH_TAG:
             driver.implicitly_wait(applicationInfo.IMPLICIT_WAIT)
             try:
-
-                like_button = driver.find_elements_by_xpath(applicationInfo.LIKE_BUTTON_PATH)[0]
+                print("Liking Image")
+                like_button = driver.find_elements_by_xpath(applicationInfo.LIKE_BUTTON_XPATH)[0]
                 like_button.click()
 
-            except NoSuchElementException:
+            except (NoSuchElementException, IndexError):
                 break
 
-            print("Liked Image: " + str(i))
+            Main.number_of_images_liked += 1
+            print("Liked Image: " + str(Main.number_of_images_liked))
             time.sleep(applicationInfo.SLEEP_TIME)
             driver.implicitly_wait(applicationInfo.IMPLICIT_WAIT)
             elem_next = driver.find_element_by_link_text(applicationInfo.NEXT_TEXT)
