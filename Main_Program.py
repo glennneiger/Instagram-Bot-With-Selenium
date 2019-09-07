@@ -6,8 +6,9 @@ from Info import applicationInfo
 from Interface import interfaceControl
 from bcolors import bcolors
 
+
 # todo change
-driver = webdriver.Chrome(applicationInfo.CHROME_DRIVER)
+driver = webdriver.Chrome(applicationInfo.WEB_DRIVER)
 number_of_images_liked = 0
 
 

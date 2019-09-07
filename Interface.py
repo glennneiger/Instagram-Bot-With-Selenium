@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from Info import applicationInfo
 from bcolors import bcolors
 
-import Main_Program
+# import Main_Program
 
 
 class interfaceControl:
@@ -103,8 +103,8 @@ class interfaceControl:
             except (NoSuchElementException, IndexError):
                 break
 
-            Main_Program.number_of_images_liked += 1
-            print("Liked Image: " + str(Main_Program.number_of_images_liked))
+            # Main_Program.number_of_images_liked += 1
+            # print("Liked Image: " + str(Main_Program.number_of_images_liked))
             time.sleep(applicationInfo.SLEEP_TIME)
             driver.implicitly_wait(applicationInfo.IMPLICIT_WAIT)
             elem_next = driver.find_element_by_link_text(applicationInfo.NEXT_TEXT)

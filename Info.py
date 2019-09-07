@@ -29,7 +29,7 @@ class applicationInfo:
     PROFILE_TEXT = 'Profile'
 
     # DRIVER PATH
-    WEB_DRIVER = 'D:\Important\Web Drivers\chromedriver.exe'
+    WEB_DRIVER = '\home\pirate\Programming\Pycharm\chromedriver.exe'
 
     # KEYWORDS
     COMMA_KEYWORD = ','
